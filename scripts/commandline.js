@@ -19,9 +19,8 @@ const readFromTerminal = callback => {
 const gitAdd = () => {
   shell.exec('git add -A', { slient: true }, (code, stdout, stderr) => {
     if (code) throw stderr;
-    if (parseFloat(stdout) < 3) {
-      throw new Error('[ERROR: not able to add files');
-      process.exit(1);
+    if (code) {
+      throw new Error(`[ERROR: not able to add files ${stderr}`);
     } else {
       gitCommit();
     }
@@ -35,10 +34,8 @@ const gitCommit = () => {
       `git commit -m "${msg}"`,
       { slient: true },
       (code, stdout, stderr) => {
-        if (code) throw stderr;
-        if (parseFloat(stdout) < 3) {
-          throw new Error('[ERROR: not able to commit changes');
-          process.exit(1);
+        if (code) {
+          throw new Error(`[ERROR: not able to commit changes ${stderr}`);
         } else {
           gitPush();
         }
@@ -54,10 +51,8 @@ const gitPush = () => {
       `git push origin ${msg.trim()}`,
       { slient: true },
       (code, stdout, stderr) => {
-        if (code) throw stderr;
-        if (parseFloat(stdout) < 3) {
-          throw new Error('[ERROR: not able to push your changes');
-          process.exit(1);
+        if (code) {
+          throw new Error(`[ERROR: not able to push your changes ${stderr}`);
         }
       }
     );
