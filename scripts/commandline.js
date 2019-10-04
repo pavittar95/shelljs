@@ -20,7 +20,7 @@ const gitAdd = () => {
   shell.exec('git add -A', { slient: true }, (code, stdout, stderr) => {
     if (code) throw stderr;
     if (parseFloat(stdout) < 3) {
-      throw new Error('[ERROR: Strapi plugin] You need npm version @>=3');
+      throw new Error('[ERROR: not able to add files');
       process.exit(1);
     } else {
       gitCommit();
@@ -37,7 +37,7 @@ const gitCommit = () => {
       (code, stdout, stderr) => {
         if (code) throw stderr;
         if (parseFloat(stdout) < 3) {
-          throw new Error('[ERROR: Strapi plugin] You need npm version @>=3');
+          throw new Error('[ERROR: not able to commit changes');
           process.exit(1);
         } else {
           gitPush();
@@ -56,7 +56,7 @@ const gitPush = () => {
       (code, stdout, stderr) => {
         if (code) throw stderr;
         if (parseFloat(stdout) < 3) {
-          throw new Error('[ERROR: Strapi plugin] You need npm version @>=3');
+          throw new Error('[ERROR: not able to push your changes');
           process.exit(1);
         }
       }
